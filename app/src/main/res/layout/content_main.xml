@@ -54,7 +54,6 @@
 
             android:id="@+id/button_signin"
             android:layout_below="@id/user_password"
-
             android:layout_margin="@dimen/fab_margin"
             android:padding="@dimen/fab_margin"
             android:layout_width="match_parent"

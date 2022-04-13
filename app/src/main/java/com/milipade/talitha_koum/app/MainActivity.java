@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 String password = userpasswordInput.getText().toString();
                 if (isValiduser(username, password)) {
                     Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
-                    User user = databaseHelper.checkUser(username);
-
+                    User user = new User();
                     Log.e(TAG,"resuilts "+databaseHelper.checkUser(username,password));
                     intent.putExtra("user" ,user );
                     startActivity(intent);

@@ -6,10 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.milipade.talitha_koum.app.data.Patient;
 import com.milipade.talitha_koum.app.data.User;
 
 import java.text.SimpleDateFormat;
@@ -17,8 +19,9 @@ import java.util.Calendar;
 
 
 
-public class WelcomeActivity extends AppCompatActivity {
-
+public class WelcomeActivity extends AppCompatActivity implements PatientDialogFragment.OnFragmentInteractionListener {
+    private static final String TAG =WelcomeActivity.class.getName();
+    TextView textviewRecord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,9 @@ public class WelcomeActivity extends AppCompatActivity {
         wellcome.setText("Welcome user"+ user.getRealname());
         TextView myTime = findViewById(R.id.textview_time);
         myTime.setText(mydateTime);
+        textviewRecord = findViewById(R.id.textview_record);
+
+
 
 
         newRecord.setOnClickListener(new View.OnClickListener() {
@@ -51,4 +57,9 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onFragmentInteraction(Patient patient) {
+        Log.e(TAG, "onFragmentInteraction ");
+        textviewRecord.setText("Name "+patient.getName()+"\n Gender"+patient.getGender()+"\n");
+    }
 }
