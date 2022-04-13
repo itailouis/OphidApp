@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Patient  implements Parcelable {
     private int id;
+    private  int age ;
     private String name;
     private String gender;
     private Date dateOfBirth;
@@ -20,6 +21,14 @@ public class Patient  implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getName() {
@@ -46,14 +55,24 @@ public class Patient  implements Parcelable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public static Creator<Patient> getCREATOR() {
-        return CREATOR;
-    }
-
-    public Patient(Parcel in) {
+    protected Patient(Parcel in) {
         id = in.readInt();
+        age = in.readInt();
         name = in.readString();
         gender = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(age);
+        dest.writeString(name);
+        dest.writeString(gender);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Patient> CREATOR = new Creator<Patient>() {
@@ -67,16 +86,4 @@ public class Patient  implements Parcelable {
             return new Patient[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeString(gender);
-    }
 }

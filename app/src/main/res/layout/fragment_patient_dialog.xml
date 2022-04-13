@@ -87,7 +87,6 @@
                 android:id="@+id/gender"
                 android:layout_height="wrap_content">
                 <RadioButton
-
                     android:text="Male"
                     android:id="@+id/male_gander"
                     android:layout_width="wrap_content"
@@ -98,6 +97,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RadioGroup>
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
 
         </LinearLayout>
         <Button

@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.milipade.talitha_koum.app.data.Patient;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -30,6 +32,11 @@ public class PatientDialogFragment extends DialogFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private DatePicker datePicker;
+    private Calendar calendar;
+
+    private int year, month, day;
 
     public PatientDialogFragment() {
         // Required empty public constructor
@@ -71,6 +78,7 @@ public class PatientDialogFragment extends DialogFragment {
 
         RadioButton maleRadioButton = rootView.findViewById(R.id.male_gander);
         RadioButton femaleRadioButton = rootView.findViewById(R.id.female_gander);
+        datePicker= rootView.findViewById(R.id.datePicker);
 
 
 
@@ -78,8 +86,14 @@ public class PatientDialogFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
+
+                final Calendar c = Calendar.getInstance();
+                c.set(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth());
+
+                getAge(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth());
                 Patient patient = new Patient();
-                patient.setDateOfBirth(new Date());
+                patient.setDateOfBirth(c.getTime());
+                patient.setAge(getAge(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth()));
                 patient.setGender(femaleRadioButton.isChecked() ?"Female":"Male");
                 patient.setName(name.getText().toString());
                 mListener.onFragmentInteraction(patient);
@@ -105,5 +119,18 @@ public class PatientDialogFragment extends DialogFragment {
 
     interface OnFragmentInteractionListener {
         void onFragmentInteraction(Patient patient);
+    }
+
+    private int getAge(int year, int month, int day){
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        dob.set(year, month, day);
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+        Integer ageInt = new Integer(age);
+
+        return ageInt;
     }
 }
